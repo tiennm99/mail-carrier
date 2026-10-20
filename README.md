@@ -111,6 +111,11 @@ so a run that fails partway (for example on Telegram rate limiting) resumes on
 the next trigger without sending duplicates. When a later reply matches the
 filter, the thread is labelled again and only the new reply is sent.
 
+Each Telegram message shows the subject in bold and the sender, followed by
+the body as plain text inside a quote you tap to expand. Every link appears
+as its label, such as **Sign in**, instead of the full tracking URL, and link
+previews are turned off.
+
 To change the message limit, edit `MAX_TEXT` at the top of `src/Code.js`.
 
 ## Limits
