@@ -1,0 +1,22 @@
+{
+  "name": "mail-carrier",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Send Gmail messages to a Telegram chat with a Gmail filter and Google Apps Script",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p jsconfig.json",
+    "push": "clasp push --force"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@google/clasp": "^3.4.1",
+    "@types/google-apps-script": "^2.0.13",
+    "eslint": "^10.13.0",
+    "eslint-plugin-jsdoc": "^65.3.15",
+    "globals": "^17.13.0",
+    "typescript": "^7.0.2"
+  }
+}
