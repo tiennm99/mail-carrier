@@ -1,7 +1,7 @@
 /* exported forwardToTelegram */
 
-// Gmail label that marks threads to send; a Gmail filter applies it.
-const LABEL = 'to-telegram';
+// Gmail label that marks threads to send, unless the LABEL property is set.
+const DEFAULT_LABEL = 'Telegram';
 // Telegram caps a message at 4096 characters; leave room for the marker.
 const MAX_TEXT = 4000;
 
@@ -9,8 +9,9 @@ const MAX_TEXT = 4000;
  * Sends each new message in labelled threads to Telegram, oldest first, then
  * removes the label. Run it from a time-driven trigger.
  *
- * Script properties: BOT_TOKEN and CHAT_ID are set by hand; LAST_SENT is the
- * timestamp of the last message sent, so a failed run resumes where it stopped.
+ * Script properties: BOT_TOKEN and CHAT_ID are set by hand, and LABEL
+ * optionally; LAST_SENT is the timestamp of the last message sent, so a failed
+ * run resumes where it stopped.
  * @returns {void}
  */
 function forwardToTelegram() {
@@ -20,7 +21,9 @@ function forwardToTelegram() {
   if (!token || !chatId) {
     throw new Error('Set BOT_TOKEN and CHAT_ID in Script Properties');
   }
-  const label = GmailApp.getUserLabelByName(LABEL);
+  const label = GmailApp.getUserLabelByName(
+    props.getProperty('LABEL') || DEFAULT_LABEL,
+  );
   if (!label) return;
 
   const since = Number(props.getProperty('LAST_SENT') || 0);

@@ -24,7 +24,8 @@ No server is needed: the script runs in your Google account for free.
    for example From `@example.com`. Gmail has no wildcards; a domain alone
    matches every sender at that domain, and `@a.com OR @b.com` matches either.
 2. Click **Create filter**.
-3. Tick **Apply the label** and create a new label named `to-telegram`.
+3. Tick **Apply the label** and create a new label named `Telegram`, or any
+   name you set in the `LABEL` property in step 4.
 4. Click **Create filter**.
 
 ### 3. Add the script
@@ -63,6 +64,7 @@ Pick one of the two ways below.
    | --- | --- |
    | `BOT_TOKEN` | Bot token from step 1 |
    | `CHAT_ID` | Chat ID from step 1 |
+   | `LABEL` | Optional; Gmail label to watch, default `Telegram` |
 
 2. Select `forwardToTelegram` in the toolbar, click **Run**, and allow the
    Gmail and external-request permissions it asks for.
@@ -102,15 +104,14 @@ secret.
 
 ## How it works
 
-Each run reads up to 50 threads labelled `to-telegram`, sends every message
+Each run reads up to 50 threads with the label (`Telegram` by default), sends every message
 newer than the last one sent, oldest first, and removes the label. The
 timestamp of the last sent message is kept in the `LAST_SENT` script property,
 so a run that fails partway (for example on Telegram rate limiting) resumes on
 the next trigger without sending duplicates. When a later reply matches the
 filter, the thread is labelled again and only the new reply is sent.
 
-To change the label name or message limit, edit the constants at the top of
-`src/Code.js`.
+To change the message limit, edit `MAX_TEXT` at the top of `src/Code.js`.
 
 ## Limits
 
