@@ -73,6 +73,33 @@ Pick one of the two ways below.
 Send yourself a test email that matches the filter; it should reach Telegram
 within a minute.
 
+## Deploy with GitHub Actions
+
+The [deploy workflow](.github/workflows/deploy.yml) lints and type-checks every
+push and pull request, and on `main` pushes `src/` to your Apps Script project.
+Without the secrets below it skips the push, so forks stay green.
+
+1. Do the clasp setup from step 3 once, so `npx clasp login` has created
+   `~/.clasprc.json`.
+2. In your fork, open **Settings → Secrets and variables → Actions** and add:
+
+   | Secret | Value |
+   | --- | --- |
+   | `CLASPRC_JSON` | Contents of `~/.clasprc.json` |
+   | `SCRIPT_ID` | Script ID from **Project Settings** |
+
+3. Push to `main`, or run the workflow from the **Actions** tab.
+
+The workflow only replaces the code. Script Properties and the trigger stay as
+you set them in step 4.
+
+`CLASPRC_JSON` holds a refresh token that can edit your Apps Script projects
+and Drive files, so only add it to a repo where you trust everyone with write
+access. GitHub does not pass secrets to pull requests from forks. The token
+stops working if you change your Google password, revoke clasp's access, or
+leave it unused for six months; run `npx clasp login` again and update the
+secret.
+
 ## How it works
 
 Each run reads up to 50 threads labelled `to-telegram`, sends every message
