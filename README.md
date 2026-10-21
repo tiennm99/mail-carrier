@@ -65,6 +65,7 @@ Pick one of the two ways below.
    | `BOT_TOKEN` | Bot token from step 1 |
    | `CHAT_ID` | Chat ID from step 1 |
    | `LABEL` | Optional; Gmail label to watch, default `Telegram` |
+   | `ENABLED` | Optional; `false` pauses sending, default enabled |
 
 2. Select `forwardToTelegram` in the toolbar, click **Run**, and allow the
    Gmail and external-request permissions it asks for.

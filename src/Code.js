@@ -9,13 +9,15 @@ const MAX_TEXT = 4000;
  * Sends each new message in labelled threads to Telegram, oldest first, then
  * removes the label. Run it from a time-driven trigger.
  *
- * Script properties: BOT_TOKEN and CHAT_ID are set by hand, and LABEL
- * optionally; LAST_SENT is the timestamp of the last message sent, so a failed
+ * Script properties: BOT_TOKEN and CHAT_ID are set by hand, and LABEL and
+ * ENABLED optionally; ENABLED=false pauses the script without removing its
+ * trigger. LAST_SENT is the timestamp of the last message sent, so a failed
  * run resumes where it stopped.
  * @returns {void}
  */
 function forwardToTelegram() {
   const props = PropertiesService.getScriptProperties();
+  if (props.getProperty('ENABLED') === 'false') return;
   const token = props.getProperty('BOT_TOKEN');
   const chatId = props.getProperty('CHAT_ID');
   if (!token || !chatId) {
